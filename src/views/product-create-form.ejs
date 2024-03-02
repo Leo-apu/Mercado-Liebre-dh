@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<!-- Include Head -->
+<%- include('partials/head', {title: 'Formulario de creación'}) %>
+<body>
+	<!-- Header -->
+	<%- include('partials/headerNavbar') %>
+	<!-- /Header -->
+
+	<div class="container products-wrapper">
+		<div class="row">
+			<div class="col-12">
+				<h2 class="products-title">Formulario de creación de productos</h2>
+			</div>
+		</div>
+		<div class="col-12">
+			<form action="/products/create" method="POST" enctype="multipart/form-data">
+				<div class="row product-detail">
+					<div class="col-12 col-md-6">
+						<label for="name" class="form-label">Nombre del producto:</label>
+						<input type="text" id="name" name="name" placeholder="Ej: Zapatillas Reebok" class="form-input" value="<%= locals.old &&  old.name %>">
+						<% if (locals.errors && errors.name) { %>
+							<p class="feedback"><%= errors.name.msg %></p>
+						<% } %>
+					</div>
+					<div class="col-12 col-md-6">
+						<label for="price" class="form-label">Precio del producto:</label>
+						<input type="text" id="price" name="price" placeholder="Ej: 5678" class="form-input" value="<%= locals.old &&  old.price %>">
+						<% if (locals.errors && errors.price) { %>
+							<p class="feedback"><%= errors.price.msg %></p>
+						<% } %>
+					</div>
+					<div class="col-12 col-md-6">
+						<label for="discount" class="form-label">Descuento:</label>
+						<input type="text" id="discount" name="discount" placeholder="Ej: 15" class="form-input" value="<%= locals.old &&  old.discount %>">
+						<% if (locals.errors && errors.discount) { %>
+							<p class="feedback"><%= errors.discount.msg %></p>
+						<% } %>
+					</div>
+					<div class="col-12 col-md-6">
+						<label for="category" class="form-label">Categoría:</label>
+						<select name="category" id="category" class="form-input">
+							<option value="">Elegí</option>
+							<option value="in-sale" <% if (locals.old && old.category === 'in-sale') { %> selected <% } %>>En oferta</option>
+							<option value="visited" <% if (locals.old && old.category === 'visited') { %> selected <% } %>>Últimos agregados</option>
+						</select>
+						<% if (locals.errors && errors.category) { %>
+							<p class="feedback"><%= errors.category.msg %></p>
+						<% } %>
+					</div>
+					<div class="col-12 col-md-6 offset-md-3">
+						<label for="image" class="form-label">Imagen (png, jpg, jpeg):</label>
+						<figure class="product-box_image">
+							<img src="/images/products/<%= locals.old && old.image ? old.image : 'default-image.png' %>" id="currentImage" alt="Imagen actual">
+						</figure>
+						<% if (locals.errors && errors.image) { %>
+							<p class="feedback"><%= errors.image.msg %></p>
+						<% } %>
+						<div class="file-upload-container">
+							<label class="custom-file-upload" for="image">Seleccionar archivo</label>
+							<input type="file" id="image" name="image" accept="image/png, image/jpeg, image/jpg, image/gif" class="form-input" title="Selecciona una imagen">
+						</div>
+					</div>
+					<div class="col-12">
+						<label for="description" class="form-label">Descipción:</label>
+						<textarea name="description" id="description" class="form-input" ><%= locals.old &&  old.description %></textarea>
+						<% if (locals.errors && errors.description) { %>
+							<p class="feedback"><%= errors.description.msg %></p>
+						<% } %>
+					</div>
+					<div class="col-12">
+						<button type="submit" class="buy-now-button">Guardar producto</button>
+					</div>
+				</div>
+			</form>
+		</div>
+
+	</div>
+	<!-- /todos los productos -->
+
+	<!-- footer -->
+	<%- include('partials/footer') %>
+	<!-- /footer -->
+	<script src="/js/imagePrev.js"></script>
+</body>	
+</html>
